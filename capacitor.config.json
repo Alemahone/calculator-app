@@ -1,0 +1,13 @@
+{
+  "appId": "com.calculator.app",
+  "appName": "計算機",
+  "webDir": "dist/public",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.calculator.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>計算機</name>
+    <description>簡潔、快速、精確的計算工具</description>
+    <author email="support@calculator.app" href="https://calculator.app">
+        Calculator Team
+    </author>
+    <content src="index.html" />
+    
+    <!-- 權限配置 -->
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    
+    <!-- Android 特定配置 -->
+    <platform name="android">
+        <allow-intent href="market:*" />
+        <preference name="Orientation" value="portrait" />
+        <preference name="FullScreen" value="false" />
+        <preference name="webviewbounce" value="false" />
+        <preference name="DisallowOverscroll" value="true" />
+    </platform>
+    
+    <!-- iOS 特定配置 -->
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+        <preference name="Orientation" value="portrait" />
+        <preference name="FullScreen" value="false" />
+    </platform>
+    
+    <!-- 啟動畫面配置 -->
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="FadeSplashScreen" value="true" />
+    <preference name="FadeSplashScreenDuration" value="1000" />
+    
+    <!-- 其他配置 -->
+    <preference name="ShowSplashScreenSpinner" value="true" />
+    <preference name="AutoHideSplashScreen" value="true" />
+</widget>
