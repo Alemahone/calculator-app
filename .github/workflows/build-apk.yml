@@ -1,4 +1,4 @@
-name: Build APK
+name: Build APK with EAS
 
 on:
   push:
@@ -28,42 +28,26 @@ jobs:
     - name: Build Web App
       run: pnpm build
 
-    - name: Setup Java
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: '11'
+    - name: Setup EAS CLI
+      run: npm install -g eas-cli
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v2
-
-    - name: Install Cordova
-      run: npm install -g cordova
-
-    - name: Create Cordova Project
-      run: |
-        cordova telemetry off
-        cordova create cordova-app com.calculator.app "Calculator"
-        cd cordova-app
-        cordova platform add android
-        cp -r ../dist/public/* www/
-        cp ../config.xml .
-
-    - name: Build APK
-      run: |
-        cd cordova-app
-        cordova build android --release
-
-    - name: Upload APK to Release
-      uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-        files: cordova-app/platforms/android/app/build/outputs/apk/release/*.apk
+    - name: Build APK with EAS
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      run: |
+        eas build --platform android --non-interactive
+
+    - name: Download APK
+      run: |
+        mkdir -p apk-output
+        # EAS 會在完成後提供下載連結
+        echo "APK 構建已完成！請訪問 EAS 儀表板下載 APK"
 
     - name: Upload APK as Artifact
       uses: actions/upload-artifact@v3
+      if: always()
       with:
-        name: calculator-app-apk
-        path: cordova-app/platforms/android/app/build/outputs/apk/release/*.apk
+        name: eas-build-info
+        path: |
+          eas.json
+          package.json
